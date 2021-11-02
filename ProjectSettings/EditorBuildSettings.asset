@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Lobby.unity
     guid: 6fd43e41c7a80f94ca3d7a4ef0c98f33
+  - enabled: 1
+    path: Assets/Scenes/Live Room.unity
+    guid: 31582649820be2e439fb287cba0f98e9
   m_configObjects: {}

@@ -38,6 +38,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         lobbyPanel.SetActive(false);
         roomPanel.SetActive(true);
         roomName.text = "Room Name: " + PhotonNetwork.CurrentRoom.Name;
+        PhotonNetwork.LoadLevel("Live Room");
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
