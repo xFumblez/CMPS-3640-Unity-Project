@@ -22,10 +22,12 @@ public class MouseLook : MonoBehaviour
         if(!view.IsMine)
         {
             cam1.enabled = false;
+            cam1.GetComponent<AudioListener> ().enabled  =  false;
         }
         else
         {
             cam1.enabled = true;
+            cam1.GetComponent<AudioListener> ().enabled  =  true;
         }
     }
 
