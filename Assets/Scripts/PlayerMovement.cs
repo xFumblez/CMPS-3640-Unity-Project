@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class PlayerMovement : MonoBehaviour
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
 
+    //public Text nameText;
+
     bool isGrounded;
 
     Vector3 velocity;
@@ -24,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         view = GetComponent<PhotonView>();
+        //nameText.text = PhotonNetwork.LocalPlayer.NickName;
     }
 
     void Update()
