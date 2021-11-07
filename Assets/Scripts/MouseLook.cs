@@ -7,7 +7,7 @@ public class MouseLook : MonoBehaviour
 {
     public float mouseSensitivity = 100f;
 
-    public Camera cam1;
+    [SerializeField] private Camera cam1;
 
     PhotonView view;
 

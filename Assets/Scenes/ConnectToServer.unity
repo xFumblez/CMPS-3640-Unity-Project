@@ -957,7 +957,7 @@ GameObject:
   - component: {fileID: 1786288665}
   - component: {fileID: 1786288664}
   m_Layer: 5
-  m_Name: Placeholder
+  m_Name: UsernameInput
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
 
-    //public Text nameText;
+    public TextMesh nameText;
 
     bool isGrounded;
 
@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         view = GetComponent<PhotonView>();
-        //nameText.text = PhotonNetwork.LocalPlayer.NickName;
+        nameText.text = PhotonNetwork.LocalPlayer.NickName;
     }
 
     void Update()
