@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         view = GetComponent<PhotonView>();
-        nameText.text = PhotonNetwork.LocalPlayer.NickName;
+        nameText.text = view.Owner.NickName;
     }
 
     void Update()
