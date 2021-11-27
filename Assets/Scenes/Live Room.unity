@@ -211,6 +211,7 @@ MonoBehaviour:
   - {fileID: 1543876810}
   - {fileID: 1363741841}
   - {fileID: 973378342}
+  itemPrefab: {fileID: 7359140249232915504, guid: ecec5c68f8dfaba4ab6931805f36928d, type: 3}
 --- !u!4 &127946385
 Transform:
   m_ObjectHideFlags: 0
@@ -462,7 +463,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &717822414
 BoxCollider:
   m_ObjectHideFlags: 0
