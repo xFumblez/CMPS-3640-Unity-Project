@@ -591,4 +591,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickUpRange: 15
   moveForce: 150
+  throwForce: 600
   holdParent: {fileID: 7532542690809807248}

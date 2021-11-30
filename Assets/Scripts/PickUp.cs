@@ -7,19 +7,21 @@ public class PickUp : MonoBehaviour
 {
     public float pickUpRange = 15f;
     public float moveForce = 250f;
+    public float throwForce = 600f;
     public Transform holdParent;
     private GameObject heldObject;
-    PhotonView view;
+    private GameObject objRef;
+    PhotonView playerView, itemView;
 
     private void Start()
     {
-        view = GetComponent<PhotonView>();
+        playerView = GetComponent<PhotonView>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (view.IsMine)
+        if (playerView.IsMine)
         {
 
             if (Input.GetKeyDown(KeyCode.E))
@@ -31,8 +33,22 @@ public class PickUp : MonoBehaviour
                     RaycastHit hit;
                     if (Physics.Raycast(ray, out hit, pickUpRange))
                     {
-                        Debug.Log(hit.transform.gameObject.name);
-                        PickupObject(hit.transform.gameObject);
+                        if (hit.transform.GetComponent<PhotonView>() == null)
+                            return;
+                        else
+                        {
+                            itemView = hit.transform.GetComponent<PhotonView>();
+                        }
+
+                        if (!hit.transform.gameObject.GetComponent<IsItemGrabbed>().itemGrabbed)
+                        {
+                            itemView.TransferOwnership(PhotonNetwork.LocalPlayer);
+                            hit.transform.gameObject.GetComponent<IsItemGrabbed>().photonView.RPC("OnItemGrab", RpcTarget.All, true);
+                            objRef = hit.transform.gameObject;
+                            PickupObject(objRef);
+                        }
+                        else
+                            return;
                     }
                 }
                 else
@@ -44,8 +60,19 @@ public class PickUp : MonoBehaviour
             if (heldObject != null)
             {
                 MoveObject();
+
+                if (Input.GetKeyDown(KeyCode.R))
+                {
+                    ThrowObject();
+                }
             }
         }
+    }
+
+    void ThrowObject()
+    {
+        heldObject.GetComponent<Rigidbody>().AddForce(transform.forward * throwForce);
+        DropObject();
     }
 
     void MoveObject()
@@ -59,6 +86,7 @@ public class PickUp : MonoBehaviour
 
     void PickupObject(GameObject pickObj)
     {
+
         if (pickObj.GetComponent<Rigidbody>())
         {
             Rigidbody objRig = pickObj.GetComponent<Rigidbody>();
@@ -68,7 +96,6 @@ public class PickUp : MonoBehaviour
             objRig.transform.parent = holdParent;
             heldObject = pickObj;
         }
-
     }
 
     void DropObject()
@@ -77,6 +104,7 @@ public class PickUp : MonoBehaviour
         heldObject.GetComponent<Rigidbody>().useGravity = true;
         heldRig.drag = 1;
 
+        heldObject.GetComponent<IsItemGrabbed>().photonView.RPC("OnItemGrab", RpcTarget.All, false);
         heldObject.transform.parent = null;
         heldObject = null;
     }
