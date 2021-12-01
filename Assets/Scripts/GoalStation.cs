@@ -29,10 +29,18 @@ public class GoalStation : MonoBehaviourPun
 
     private void OnTriggerEnter(Collider other)
     {
-        otherView = other.gameObject.GetComponent<PhotonView>();
-        myView.RPC("AddToReceived", RpcTarget.All, other.gameObject.tag);
+        if (other.gameObject.GetComponent<PhotonView>() == null)
+            return;
+        else
+        {
+            if (other.gameObject.tag == "Untagged" || other.gameObject.tag == "Player")
+                return;
 
-        DestroyObject(otherView);
+            otherView = other.gameObject.GetComponent<PhotonView>();
+            myView.RPC("AddToReceived", RpcTarget.All, other.gameObject.tag);
+
+            DestroyObject(otherView);
+        }
     }
 
     [PunRPC]

@@ -60,7 +60,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requestedObjects: []
   receivedObjects: []
-  possibleObjects: []
+  possibleObjects:
+  - {fileID: 8310730796581308482, guid: ebdd9094836d4f34f8defd52de3b6e23, type: 3}
+  - {fileID: 8507647214021232350, guid: 1d46e64645705bc4081c2dc0cba1bd68, type: 3}
+  - {fileID: 4934438454022709165, guid: 4c4aa292112c510479fe2fe2cba004e0, type: 3}
+  - {fileID: 5803585131839505048, guid: 2d9c3d386e5634b4f9d2effc3da5eed9, type: 3}
+  - {fileID: 5831788673087250836, guid: 606849114b2e18c4b8b4ab7c0fa9931d, type: 3}
+  - {fileID: 4122017298835341162, guid: ed338b7a453305c4c88b7091f96033ea, type: 3}
+  - {fileID: 3120913920866967834, guid: 19981baa3908eed408a2d9a5edbc5211, type: 3}
+  - {fileID: 6200365906823578103, guid: 56909eda7caa1a84da242267b7fb2f73, type: 3}
+  myView: {fileID: 0}
+  otherView: {fileID: 0}
 --- !u!114 &5533083583185694744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,7 +120,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3410708846143388017}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.98, y: 1, z: 16.06}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 3410708844570651044}
