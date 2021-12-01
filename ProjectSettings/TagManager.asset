@@ -5,6 +5,19 @@ TagManager:
   serializedVersion: 2
   tags:
   - Basic Sword
+  - Upgraded Sword
+  - Basic Axe
+  - Basic Shield
+  - Basic Spear
+  - Upgraded Bow
+  - Basic Bow
+  - Upgraded Axe
+  - Upgraded Shield
+  - Upgraded Spear
+  - Sword Station
+  - Axe Station
+  - Shield Station
+  - Bow Station
   layers:
   - Default
   - TransparentFX

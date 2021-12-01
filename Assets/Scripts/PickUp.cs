@@ -40,7 +40,7 @@ public class PickUp : MonoBehaviour
                             itemView = hit.transform.GetComponent<PhotonView>();
                         }
 
-                        if (!hit.transform.gameObject.GetComponent<IsItemGrabbed>().itemGrabbed)
+                        if (hit.transform.gameObject.GetComponent<IsItemGrabbed>() != null && hit.transform.gameObject.GetComponent<IsItemGrabbed>().itemGrabbed == false)
                         {
                             itemView.TransferOwnership(PhotonNetwork.LocalPlayer);
                             hit.transform.gameObject.GetComponent<IsItemGrabbed>().photonView.RPC("OnItemGrab", RpcTarget.All, true);

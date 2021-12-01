@@ -48,6 +48,10 @@ MonoBehaviour:
   - AddToReceived
   - ClearObjectList
   - requestObject
+  - AxeStationAdd
+  - BowStationAdd
+  - ShieldStationAdd
+  - SwordStationAdd
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
