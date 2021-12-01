@@ -31,6 +31,8 @@ public class GoalStation : MonoBehaviourPun
     {
         otherView = other.gameObject.GetComponent<PhotonView>();
         myView.RPC("AddToReceived", RpcTarget.All, other.gameObject.tag);
+
+        DestroyObject(otherView);
     }
 
     [PunRPC]
@@ -44,6 +46,10 @@ public class GoalStation : MonoBehaviourPun
     {
         receivedObjects.Add(itemToAdd);
         Debug.Log(itemToAdd + " was received at " + gameObject.name);
+    }
+
+    void DestroyObject(PhotonView otherView)
+    {
         PhotonNetwork.Destroy(otherView);
     }
 
