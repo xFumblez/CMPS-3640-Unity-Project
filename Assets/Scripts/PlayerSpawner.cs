@@ -9,7 +9,9 @@ public class PlayerSpawner : MonoBehaviour
     public GameObject[] playerPrefabs;
     public Transform[] spawnPoints;
     private int playerSpawnValue;
-    public GameObject itemPrefab;
+    public GameObject[] spawnitems;
+    //public GameObject itemPrefab;
+    private Vector3 positioning = new Vector3(0,1,0);
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +30,14 @@ public class PlayerSpawner : MonoBehaviour
 
         GameObject playerToSpawn = playerPrefabs[playerSpawnValue];
         PhotonNetwork.Instantiate(playerToSpawn.name, spawnPoint.position, Quaternion.identity);
-        PhotonNetwork.InstantiateRoomObject(itemPrefab.name, Vector3.up, Quaternion.identity);
+        
+        for(int i = 0; i < spawnitems.Length;i++)
+        {
+            positioning += Vector3.right;
+            PhotonNetwork.InstantiateRoomObject(spawnitems[i].name, positioning, Quaternion.identity);
+        }
+        
+        //PhotonNetwork.InstantiateRoomObject(itemPrefab.name, Vector3.up, Quaternion.identity);
     }
 
 }
