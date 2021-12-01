@@ -163,7 +163,13 @@ MonoBehaviour:
   - {fileID: 1543876810}
   - {fileID: 1363741841}
   - {fileID: 973378342}
-  itemPrefab: {fileID: 7359140249232915504, guid: ecec5c68f8dfaba4ab6931805f36928d, type: 3}
+  spawnitems:
+  - {fileID: 8310730796581308482, guid: ebdd9094836d4f34f8defd52de3b6e23, type: 3}
+  - {fileID: 7359140249232915504, guid: ecec5c68f8dfaba4ab6931805f36928d, type: 3}
+  - {fileID: 5831788673087250836, guid: 606849114b2e18c4b8b4ab7c0fa9931d, type: 3}
+  - {fileID: 8507647214021232350, guid: 1d46e64645705bc4081c2dc0cba1bd68, type: 3}
+  - {fileID: 4934438454022709165, guid: 4c4aa292112c510479fe2fe2cba004e0, type: 3}
+  - {fileID: 7043803778674573699, guid: 839f6659073ebe44b95a179eca6fb223, type: 3}
 --- !u!4 &127946385
 Transform:
   m_ObjectHideFlags: 0
