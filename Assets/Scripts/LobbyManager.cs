@@ -146,4 +146,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.LoadLevel("Live Room");
     }
+
+    public void DisconnectFromLobby()
+    {
+        PhotonNetwork.Disconnect();
+        PhotonNetwork.LoadLevel("ConnectToServer");
+    }
 }
