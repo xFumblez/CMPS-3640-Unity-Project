@@ -28,7 +28,7 @@ public class GoalStation : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        myView.RPC("CheckRequestedObjects", RpcTarget.All);
+        CheckRequestedObjects();
 
         if (timeToClear)
         {
@@ -53,7 +53,6 @@ public class GoalStation : MonoBehaviourPun
         }
     }
 
-    [PunRPC]
     void CheckRequestedObjects()
     {
         int count = 0;
@@ -73,13 +72,21 @@ public class GoalStation : MonoBehaviourPun
         {
             timeToClear = true;
             getPoint = true;
-            requestDisplays[1].text = "Sweet Thanks!";
+            myView.RPC("ChangeDisplay", RpcTarget.All, "Sweet Thanks!");
         }
         if (count != 3 && receivedObjects.Count == 3)
         {
             timeToClear = true;
-            requestDisplays[1].text = "I didn't order these...";
+            myView.RPC("ChangeDisplay", RpcTarget.All, "I didn't order these...");
         }
+    }
+
+    [PunRPC]
+    void ChangeDisplay(string dialogue)
+    {
+        requestDisplays[0].text = "";
+        requestDisplays[1].text = dialogue;
+        requestDisplays[2].text = "";
     }
 
     [PunRPC]
@@ -134,13 +141,18 @@ public class GoalStation : MonoBehaviourPun
     }
 
     [PunRPC]
-    void RequestObjects(bool isEasy, int randomNumber)
+    void RequestObjects(bool isEasy, int[] randomNumbers)
     {
 
         // Boolean isEasy to determine if basic item or enhanced item is requested
         if (isEasy)
         {
-            if (randomNumber >= 0 && randomNumber < 33)
+            for (int i = 0; i < 3; i++)
+            {
+                requestedObjects.Add(possibleObjects[randomNumbers[i]]);
+            }
+
+            /*if (randomNumber >= 0 && randomNumber < 33)
             {
                 requestedObjects.Add(possibleObjects[0]);
                 requestedObjects.Add(possibleObjects[1]);
@@ -163,11 +175,11 @@ public class GoalStation : MonoBehaviourPun
                 requestedObjects.Add(possibleObjects[0]);
                 requestedObjects.Add(possibleObjects[2]);
                 requestedObjects.Add(possibleObjects[4]);
-            }
+            }*/
         }
         else
         {
-            if (randomNumber >= 0 && randomNumber < 33)
+            /*if (randomNumber >= 0 && randomNumber < 33)
             {
                 requestedObjects.Add(possibleObjects[4]);
                 requestedObjects.Add(possibleObjects[7]);
@@ -190,7 +202,7 @@ public class GoalStation : MonoBehaviourPun
                 requestedObjects.Add(possibleObjects[7]);
                 requestedObjects.Add(possibleObjects[0]);
                 requestedObjects.Add(possibleObjects[5]);
-            }
+            }*/
         }
     }
 }

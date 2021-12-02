@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviourPun
             {
                 foreach (GameObject item in goalStations)
                 {
-                    int randomNumber = Random.Range(0, 100);
+                    int[] randomNumber = { Random.Range(0, 4), Random.Range(0, 4), Random.Range(0, 4) };
                     GoalStation goalStation = item.GetComponentInChildren<GoalStation>();
                     goalStation.myView.RPC("GetRequestCount", RpcTarget.All);
                     if (goalStation.reqCount < 3)
