@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviourPun
                 if (goalStation.getPoint)
                 {
                     points++;
-                    goalStation.myView.RPC("SetPointToFalse", RpcTarget.All);
+                    goalStation.myView.RPC("SetPoint", RpcTarget.All, false);
                     Debug.Log(points);
                 }
             }

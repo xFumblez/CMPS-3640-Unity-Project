@@ -71,7 +71,7 @@ public class GoalStation : MonoBehaviourPun
         if (count == 3)
         {
             timeToClear = true;
-            getPoint = true;
+            myView.RPC("SetPoint", RpcTarget.All, true);
             myView.RPC("ChangeDisplay", RpcTarget.All, "Sweet Thanks!");
         }
         if (count != 3 && receivedObjects.Count == 3)
@@ -135,9 +135,9 @@ public class GoalStation : MonoBehaviourPun
     }
 
     [PunRPC]
-    void SetPointToFalse()
+    void SetPoint(bool value)
     {
-        getPoint = false;
+        getPoint = value;
     }
 
     [PunRPC]
