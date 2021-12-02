@@ -521,7 +521,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   nameText: {fileID: 7433816653589868917}
-  Paused: 0
 --- !u!114 &6041847495033091970
 MonoBehaviour:
   m_ObjectHideFlags: 0

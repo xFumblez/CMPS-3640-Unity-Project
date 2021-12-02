@@ -20,8 +20,6 @@ public class PlayerMovement : MonoBehaviour
 
     public TextMesh nameText;
 
-    public bool Paused = false;
-
     bool isGrounded;
 
     Vector3 velocity;
@@ -34,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if(view.IsMine)
+        if(view.IsMine && Cursor.lockState == CursorLockMode.Locked)
         {
             isGrounded = Physics.CheckSphere(groundCheck.position,groundDistance,groundMask);
 
