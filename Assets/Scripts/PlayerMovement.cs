@@ -20,6 +20,8 @@ public class PlayerMovement : MonoBehaviour
 
     public TextMesh nameText;
 
+    public bool Paused = false;
+
     bool isGrounded;
 
     Vector3 velocity;
