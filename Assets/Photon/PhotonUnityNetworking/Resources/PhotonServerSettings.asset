@@ -52,6 +52,13 @@ MonoBehaviour:
   - BowStationAdd
   - ShieldStationAdd
   - SwordStationAdd
+  - ClearObjectLists
+  - RequestObject
+  - GetRequestCount
+  - DisplayRequestedObjects
+  - CheckRequestedObjects
+  - RequestObjects
+  - SetPointToFalse
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

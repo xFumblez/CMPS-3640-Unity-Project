@@ -9,8 +9,12 @@ public class GoalStation : MonoBehaviourPun
     public List<GameObject> requestedObjects;
     public List<string> receivedObjects;
     public List<GameObject> possibleObjects;
-    [SerializeField] private PhotonView myView;
+    public PhotonView myView;
+    public TextMesh[] requestDisplays;
+    public int reqCount = 0;
     [SerializeField] private PhotonView otherView;
+    public bool timeToClear = false;
+    public bool getPoint = false;
 
 
     // Start is called before the first frame update
@@ -24,7 +28,13 @@ public class GoalStation : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        
+        myView.RPC("CheckRequestedObjects", RpcTarget.All);
+
+        if (timeToClear)
+        {
+            myView.RPC("ClearObjectLists", RpcTarget.All);
+            timeToClear = false;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -44,15 +54,65 @@ public class GoalStation : MonoBehaviourPun
     }
 
     [PunRPC]
-    void ClearObjectList(List<GameObject> objectList)
+    void CheckRequestedObjects()
     {
-        objectList.Clear();
+        int count = 0;
+
+        for (int i = 0; i < receivedObjects.Count; i++)
+        {
+            for (int j = 0; j < requestedObjects.Count; j++)
+            {
+                if (requestedObjects[j].tag == receivedObjects[i])
+                {
+                    count++;
+                }
+            }
+        }
+
+        if (count == 3)
+        {
+            timeToClear = true;
+            getPoint = true;
+            requestDisplays[1].text = "Sweet Thanks!";
+        }
+        if (count != 3 && receivedObjects.Count == 3)
+        {
+            timeToClear = true;
+            requestDisplays[1].text = "I didn't order these...";
+        }
+    }
+
+    [PunRPC]
+    void DisplayRequestedObjects()
+    {
+        for (int i = 0; i < requestedObjects.Count; i++)
+        {
+            requestDisplays[i].text = requestedObjects[i].gameObject.tag;
+        }
+    }
+
+    [PunRPC]
+    void ClearObjectLists()
+    {
+        receivedObjects.Clear();
+        receivedObjects.TrimExcess();
+        requestedObjects.Clear();
+        requestedObjects.TrimExcess();
+        reqCount = 0;
     }
 
     [PunRPC]
     void AddToReceived(string itemToAdd)
     {
         receivedObjects.Add(itemToAdd);
+        for (int i = 0; i < requestDisplays.Length; i++)
+        {
+            if (itemToAdd == requestDisplays[i].text)
+            {
+                requestDisplays[i].text = "";
+                break;
+            }
+        }
         Debug.Log(itemToAdd + " was received at " + gameObject.name);
     }
 
@@ -62,10 +122,20 @@ public class GoalStation : MonoBehaviourPun
     }
 
     [PunRPC]
-    void requestObject(bool isEasy)
+    void GetRequestCount()
     {
-        // Random number to determine what item is requested
-        int randomNumber = Random.Range(0, 100);
+        reqCount = requestedObjects.Count;
+    }
+
+    [PunRPC]
+    void SetPointToFalse()
+    {
+        getPoint = false;
+    }
+
+    [PunRPC]
+    void RequestObjects(bool isEasy, int randomNumber)
+    {
 
         // Boolean isEasy to determine if basic item or enhanced item is requested
         if (isEasy)
@@ -73,18 +143,26 @@ public class GoalStation : MonoBehaviourPun
             if (randomNumber >= 0 && randomNumber < 33)
             {
                 requestedObjects.Add(possibleObjects[0]);
+                requestedObjects.Add(possibleObjects[1]);
+                requestedObjects.Add(possibleObjects[2]);
             }
             else if (randomNumber >= 33 && randomNumber < 66)
             {
                 requestedObjects.Add(possibleObjects[1]);
+                requestedObjects.Add(possibleObjects[2]);
+                requestedObjects.Add(possibleObjects[3]);
             }
             else if (randomNumber >= 66 && randomNumber < 99)
             {
+                requestedObjects.Add(possibleObjects[0]);
                 requestedObjects.Add(possibleObjects[2]);
+                requestedObjects.Add(possibleObjects[3]);
             }
             else
             {
-                requestedObjects.Add(possibleObjects[3]);
+                requestedObjects.Add(possibleObjects[0]);
+                requestedObjects.Add(possibleObjects[2]);
+                requestedObjects.Add(possibleObjects[4]);
             }
         }
         else
@@ -92,18 +170,26 @@ public class GoalStation : MonoBehaviourPun
             if (randomNumber >= 0 && randomNumber < 33)
             {
                 requestedObjects.Add(possibleObjects[4]);
+                requestedObjects.Add(possibleObjects[7]);
+                requestedObjects.Add(possibleObjects[5]);
             }
             else if (randomNumber >= 33 && randomNumber < 66)
             {
                 requestedObjects.Add(possibleObjects[5]);
+                requestedObjects.Add(possibleObjects[3]);
+                requestedObjects.Add(possibleObjects[6]);
             }
             else if (randomNumber >= 66 && randomNumber < 99)
             {
                 requestedObjects.Add(possibleObjects[6]);
+                requestedObjects.Add(possibleObjects[7]);
+                requestedObjects.Add(possibleObjects[4]);
             }
             else
             {
                 requestedObjects.Add(possibleObjects[7]);
+                requestedObjects.Add(possibleObjects[0]);
+                requestedObjects.Add(possibleObjects[5]);
             }
         }
     }
