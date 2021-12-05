@@ -18,10 +18,12 @@ public class GameManager : MonoBehaviourPun
     private double currentTime;
     private double timeToWaitForRequest = 5;
     private int points = 0;
+    public PhotonView thisView;
 
     // Start is called before the first frame update
     void Start()
     {
+        thisView = GetComponent<PhotonView>();
         startTime = PhotonNetwork.Time;
         currentTime = startTime;
         startTimer = true;
@@ -59,9 +61,15 @@ public class GameManager : MonoBehaviourPun
             {
                 points++;
                 goalStation.myView.RPC("SetPoint", RpcTarget.All, false);
-                Debug.Log(points);
+                thisView.RPC("SendPoints", RpcTarget.All, points);
             }
         }
+    }
+
+    [PunRPC]
+    void SendPoints(int points)
+    {
+        pointText.text = "Points: " + points;
     }
 
     void RequestObjects()
