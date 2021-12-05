@@ -59,13 +59,8 @@ public class GoalStation : MonoBehaviourPun
 
         for (int i = 0; i < receivedObjects.Count; i++)
         {
-            for (int j = 0; j < requestedObjects.Count; j++)
-            {
-                if (requestedObjects[j].tag == receivedObjects[i])
-                {
-                    count++;
-                }
-            }
+            if (requestDisplays[i].text == "")
+                count++;
         }
 
         if (count == 3)
@@ -111,14 +106,21 @@ public class GoalStation : MonoBehaviourPun
     [PunRPC]
     void AddToReceived(string itemToAdd)
     {
+        bool found = false;
         receivedObjects.Add(itemToAdd);
         for (int i = 0; i < requestDisplays.Length; i++)
         {
             if (itemToAdd == requestDisplays[i].text)
             {
                 requestDisplays[i].text = "";
+                found = true;
                 break;
             }
+        }
+        if (!found)
+        {
+            timeToClear = true;
+            ChangeDisplay("I didn't order this...");
         }
         Debug.Log(itemToAdd + " was received at " + gameObject.name);
     }

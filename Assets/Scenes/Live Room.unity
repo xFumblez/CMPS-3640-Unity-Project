@@ -2866,7 +2866,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6641334820212709325, guid: 8e3e5947322ae2e43911d0df68338489, type: 3}
       propertyPath: timer
-      value: 25
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6641334820212709325, guid: 8e3e5947322ae2e43911d0df68338489, type: 3}
       propertyPath: endScreen
