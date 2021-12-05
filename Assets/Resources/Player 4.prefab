@@ -455,6 +455,7 @@ GameObject:
   - component: {fileID: 6041847495033091970}
   - component: {fileID: -6680184578720146875}
   - component: {fileID: 4811672929403786451}
+  - component: {fileID: 4484401862780909548}
   m_Layer: 0
   m_Name: Player 4
   m_TagString: Player
@@ -593,3 +594,16 @@ MonoBehaviour:
   moveForce: 250
   throwForce: 600
   holdParent: {fileID: 7714839567930313031}
+--- !u!114 &4484401862780909548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9115552367180147590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d51aac94763512545ba7e694bef1a98b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactRange: 10
