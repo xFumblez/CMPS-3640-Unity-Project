@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviourPun
     public GameObject[] goalStations;
     public Text timerText;
     public Text pointText;
+    public GameObject endScreen;
+    public Text totalPointsText;
     bool startTimer = false;
     public double timerIncrementValue;
     public double startTime;
@@ -17,12 +19,14 @@ public class GameManager : MonoBehaviourPun
     private double requestObjectsTimeValue;
     private double currentTime;
     private double timeToWaitForRequest = 5;
-    private int points = 0;
+    private int points;
     public PhotonView thisView;
 
     // Start is called before the first frame update
     void Start()
     {
+        points = 0;
+        endScreen.SetActive(false);
         thisView = GetComponent<PhotonView>();
         startTime = PhotonNetwork.Time;
         currentTime = startTime;
@@ -48,6 +52,11 @@ public class GameManager : MonoBehaviourPun
         if (timerIncrementValue >= timer)
         {
             Debug.Log("Time's Up!");
+            Cursor.lockState = CursorLockMode.None;
+            thisView.RPC("SendPoints", RpcTarget.All, points);
+            endScreen.SetActive(true);
+            totalPointsText.text = "Total Points:\n" + points;
+
             startTimer = false;
         }
     }
@@ -67,9 +76,10 @@ public class GameManager : MonoBehaviourPun
     }
 
     [PunRPC]
-    void SendPoints(int points)
+    void SendPoints(int pointCount)
     {
-        pointText.text = "Points: " + points;
+        pointText.text = "Points: " + pointCount;
+        points = pointCount;
     }
 
     void RequestObjects()
