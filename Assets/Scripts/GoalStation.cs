@@ -141,68 +141,12 @@ public class GoalStation : MonoBehaviourPun
     }
 
     [PunRPC]
-    void RequestObjects(bool isEasy, int[] randomNumbers)
+    void RequestObjects(int[] randomNumbers)
     {
-
-        // Boolean isEasy to determine if basic item or enhanced item is requested
-        if (isEasy)
+        for (int i = 0; i < 3; i++)
         {
-            for (int i = 0; i < 3; i++)
-            {
-                requestedObjects.Add(possibleObjects[randomNumbers[i]]);
-            }
-
-            /*if (randomNumber >= 0 && randomNumber < 33)
-            {
-                requestedObjects.Add(possibleObjects[0]);
-                requestedObjects.Add(possibleObjects[1]);
-                requestedObjects.Add(possibleObjects[2]);
-            }
-            else if (randomNumber >= 33 && randomNumber < 66)
-            {
-                requestedObjects.Add(possibleObjects[1]);
-                requestedObjects.Add(possibleObjects[2]);
-                requestedObjects.Add(possibleObjects[3]);
-            }
-            else if (randomNumber >= 66 && randomNumber < 99)
-            {
-                requestedObjects.Add(possibleObjects[0]);
-                requestedObjects.Add(possibleObjects[2]);
-                requestedObjects.Add(possibleObjects[3]);
-            }
-            else
-            {
-                requestedObjects.Add(possibleObjects[0]);
-                requestedObjects.Add(possibleObjects[2]);
-                requestedObjects.Add(possibleObjects[4]);
-            }*/
-        }
-        else
-        {
-            /*if (randomNumber >= 0 && randomNumber < 33)
-            {
-                requestedObjects.Add(possibleObjects[4]);
-                requestedObjects.Add(possibleObjects[7]);
-                requestedObjects.Add(possibleObjects[5]);
-            }
-            else if (randomNumber >= 33 && randomNumber < 66)
-            {
-                requestedObjects.Add(possibleObjects[5]);
-                requestedObjects.Add(possibleObjects[3]);
-                requestedObjects.Add(possibleObjects[6]);
-            }
-            else if (randomNumber >= 66 && randomNumber < 99)
-            {
-                requestedObjects.Add(possibleObjects[6]);
-                requestedObjects.Add(possibleObjects[7]);
-                requestedObjects.Add(possibleObjects[4]);
-            }
-            else
-            {
-                requestedObjects.Add(possibleObjects[7]);
-                requestedObjects.Add(possibleObjects[0]);
-                requestedObjects.Add(possibleObjects[5]);
-            }*/
+            requestedObjects.Add(possibleObjects[randomNumbers[i]]);
         }
     }
+        
 }
