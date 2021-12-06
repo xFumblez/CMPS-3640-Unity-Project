@@ -5,7 +5,7 @@ using Photon.Pun;
 
 public class ItemGenerator : MonoBehaviour
 {
-    public float interactRange = 10f;
+    public float interactRange = 2f;
     PhotonView playerView, itemView;
     private SpawnItem spawnItemScript;
 

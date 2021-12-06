@@ -5,9 +5,9 @@ using Photon.Pun;
 
 public class PickUp : MonoBehaviour
 {
-    public float pickUpRange = 10f;
+    public float pickUpRange = 2.5f;
     public float moveForce = 250f;
-    public float throwForce = 600f;
+    public float throwForce = 1000f;
     public Transform holdParent;
     private GameObject heldObject;
     private GameObject objRef;
