@@ -149,6 +149,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public void OnClickPlayButton()
     {
         PhotonNetwork.LoadLevel("Live Room");
+        PhotonNetwork.CurrentRoom.IsOpen = false;
+        PhotonNetwork.CurrentRoom.IsVisible = false;
     }
 
     public void DisconnectFromLobby()
