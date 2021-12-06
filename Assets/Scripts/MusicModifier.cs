@@ -19,7 +19,7 @@ public class MusicModifier : MonoBehaviour
     {
         if (gameManager.timer - gameManager.timerIncrementValue <= 15)
         {
-            gameAudio.pitch = 1.8f;
+            gameAudio.pitch = 1.7f;
         }
         else if (gameManager.timerIncrementValue >= gameManager.timer / 1.25 && gameManager.timer - gameManager.timerIncrementValue > 15)
         {
@@ -31,7 +31,7 @@ public class MusicModifier : MonoBehaviour
         }
         else if (gameManager.timerIncrementValue >= gameManager.timer / 4 && gameManager.timerIncrementValue < gameManager.timer / 2)
         {
-            gameAudio.pitch = 1.1f;
+            gameAudio.pitch = 1.2f;
         }
         else
         {
