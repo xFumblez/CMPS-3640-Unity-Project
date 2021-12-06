@@ -12,6 +12,7 @@ public class PickUp : MonoBehaviour
     private GameObject heldObject;
     private GameObject objRef;
     PhotonView playerView, itemView;
+    public Animator playerAnim;
 
     private void Start()
     {
@@ -95,6 +96,7 @@ public class PickUp : MonoBehaviour
 
             objRig.transform.parent = holdParent;
             heldObject = pickObj;
+            playerAnim.SetBool("itemHeld", true);
         }
     }
 
@@ -107,5 +109,6 @@ public class PickUp : MonoBehaviour
         heldObject.GetComponent<IsItemGrabbed>().photonView.RPC("OnItemGrab", RpcTarget.All, false);
         heldObject.transform.parent = null;
         heldObject = null;
+        playerAnim.SetBool("itemHeld", false);
     }
 }

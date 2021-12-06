@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using UnityEngine.UI;
+using UnityEngine.Animations;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -20,6 +21,11 @@ public class PlayerMovement : MonoBehaviour
 
     public TextMesh nameText;
 
+    public Animator playerAnim;
+    private Vector3 lastPos = new Vector3(0, 0, 0);
+    public GameManager gameManager;
+    public GameObject[] characterHide;
+
     bool isGrounded;
 
     Vector3 velocity;
@@ -28,6 +34,15 @@ public class PlayerMovement : MonoBehaviour
     {
         view = GetComponent<PhotonView>();
         nameText.text = view.Owner.NickName;
+        gameManager = FindObjectOfType<GameManager>();
+
+        if (view.IsMine)
+        {
+            for (int i = 0; i < characterHide.Length; i++)
+            {
+                characterHide[i].SetActive(false);
+            }
+        }
     }
 
     void Update()
@@ -54,6 +69,25 @@ public class PlayerMovement : MonoBehaviour
 
             velocity.y += gravity * Time.deltaTime;
             controller.Move(velocity * Time.deltaTime);
+
+            if (lastPos != gameObject.transform.position)
+            {
+                playerAnim.SetBool("isMoving", true);
+            }
+            else
+            {
+                playerAnim.SetBool("isMoving", false);
+            }
+            lastPos = gameObject.transform.position;
+
+            if (gameManager.timerIncrementValue >= gameManager.timer / 2)
+            {
+                playerAnim.SetBool("isFrantic", true);
+            }
+            else
+            {
+                playerAnim.SetBool("isFrantic", false);
+            }
         }
     }
 }
