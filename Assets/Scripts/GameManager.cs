@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 
 public class GameManager : MonoBehaviourPun
 {
     public GameObject[] goalStations;
+    public Text timerText;
+    public Text pointText;
+    public GameObject endScreen;
+    public Text totalPointsText;
     bool startTimer = false;
     public double timerIncrementValue;
     public double startTime;
@@ -14,11 +19,15 @@ public class GameManager : MonoBehaviourPun
     private double requestObjectsTimeValue;
     private double currentTime;
     private double timeToWaitForRequest = 5;
-    private int points = 0;
+    private int points;
+    public PhotonView thisView;
 
     // Start is called before the first frame update
     void Start()
     {
+        points = 0;
+        endScreen.SetActive(false);
+        thisView = GetComponent<PhotonView>();
         startTime = PhotonNetwork.Time;
         currentTime = startTime;
         startTimer = true;
@@ -34,42 +43,84 @@ public class GameManager : MonoBehaviourPun
 
         if (PhotonNetwork.LocalPlayer.IsMasterClient)
         {
-            foreach (GameObject item in goalStations)
-            {
-                GoalStation goalStation = item.GetComponentInChildren<GoalStation>();
-                if (goalStation.getPoint)
-                {
-                    points++;
-                    goalStation.myView.RPC("SetPointToFalse", RpcTarget.All);
-                    Debug.Log(points);
-                }
-            }
-
-            requestObjectsTimeValue = PhotonNetwork.Time - currentTime;
-
-            if (requestObjectsTimeValue >= timeToWaitForRequest)
-            {
-                foreach (GameObject item in goalStations)
-                {
-                    int randomNumber = Random.Range(0, 100);
-                    GoalStation goalStation = item.GetComponentInChildren<GoalStation>();
-                    goalStation.myView.RPC("GetRequestCount", RpcTarget.All);
-                    if (goalStation.reqCount < 3)
-                    {
-                        goalStation.myView.RPC("RequestObjects", RpcTarget.All, true, randomNumber);
-                        goalStation.myView.RPC("DisplayRequestedObjects", RpcTarget.All);
-                    }
-                }
-                currentTime = PhotonNetwork.Time;
-                requestObjectsTimeValue = 0;
-                timeToWaitForRequest = 15;
-            }
+            UpdatePoints();
+            RequestObjects();
         }
+
+        UpdateTimer((float)timer - (float)timerIncrementValue);
 
         if (timerIncrementValue >= timer)
         {
             Debug.Log("Time's Up!");
+            Cursor.lockState = CursorLockMode.None;
+            thisView.RPC("SendPoints", RpcTarget.All, points);
+            endScreen.SetActive(true);
+            totalPointsText.text = "Total Points:\n" + points;
+
             startTimer = false;
         }
+    }
+
+    void UpdatePoints()
+    {
+        foreach (GameObject item in goalStations)
+        {
+            GoalStation goalStation = item.GetComponentInChildren<GoalStation>();
+            if (goalStation.getPoint)
+            {
+                points++;
+                goalStation.myView.RPC("SetPoint", RpcTarget.All, false);
+                thisView.RPC("SendPoints", RpcTarget.All, points);
+            }
+        }
+    }
+
+    [PunRPC]
+    void SendPoints(int pointCount)
+    {
+        pointText.text = "Points: " + pointCount;
+        points = pointCount;
+    }
+
+    void RequestObjects()
+    {
+        requestObjectsTimeValue = PhotonNetwork.Time - currentTime;
+
+        if (requestObjectsTimeValue >= timeToWaitForRequest)
+        {
+            foreach (GameObject item in goalStations)
+            {
+                GoalStation goalStation = item.GetComponentInChildren<GoalStation>();
+                goalStation.myView.RPC("GetRequestCount", RpcTarget.All);
+                if (goalStation.reqCount < 3)
+                {
+                    if (timerIncrementValue >= timer / 2)
+                    {
+                        int[] randomNumber = { Random.Range(0, 8), Random.Range(0, 8), Random.Range(0, 8) };
+                        goalStation.myView.RPC("RequestObjects", RpcTarget.All, randomNumber);
+                        goalStation.myView.RPC("DisplayRequestedObjects", RpcTarget.All);
+                    }
+                    else
+                    {
+                        int[] randomNumber = { Random.Range(0, 4), Random.Range(0, 4), Random.Range(0, 4) };
+                        goalStation.myView.RPC("RequestObjects", RpcTarget.All, randomNumber);
+                        goalStation.myView.RPC("DisplayRequestedObjects", RpcTarget.All);
+                    }
+                }
+            }
+            currentTime = PhotonNetwork.Time;
+            requestObjectsTimeValue = 0;
+            timeToWaitForRequest = 15;
+        }
+    }
+
+    void UpdateTimer(float timeToDisplay)
+    {
+        timeToDisplay += 1;
+
+        float minutes = Mathf.FloorToInt(timeToDisplay / 60);
+        float seconds = Mathf.FloorToInt(timeToDisplay % 60);
+
+        timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 }

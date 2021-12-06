@@ -18,6 +18,10 @@ TagManager:
   - Axe Station
   - Shield Station
   - Bow Station
+  - Sword Gen
+  - Axe Gen
+  - Shield Gen
+  - Bow Gen
   layers:
   - Default
   - TransparentFX
