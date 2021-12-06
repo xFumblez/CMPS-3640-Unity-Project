@@ -13,7 +13,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public Text roomName;
 
     public RoomItem roomItemPrefab;
-    List<RoomItem> roomItemsList = new List<RoomItem>();
+    public List<RoomItem> roomItemsList = new List<RoomItem>();
     public Transform contentObject;
 
     public float timeBetweenUpdates = 1.5f;
@@ -69,10 +69,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     void UpdateRoomList(List<RoomInfo> list)
     {
-        foreach (RoomItem item in roomItemsList)
+        foreach (Transform child in contentObject)
+        {
+            Destroy(child.gameObject);
+        }
+        /*foreach (RoomItem item in roomItemsList)
         {
             Destroy(item.gameObject);
-        }
+        }*/
         roomItemsList.Clear();
 
         foreach (RoomInfo room in list)
