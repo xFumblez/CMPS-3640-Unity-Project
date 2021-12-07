@@ -408,15 +408,15 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 6128299156075563123, guid: 08efecc9c3bab5942ad837e91db21566, type: 3}
-  m_Type: 1
-  m_PreserveAspect: 1
+  m_Sprite: {fileID: 21300000, guid: 7a99530b6fc875841bdbb325d45c5523, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
-  m_UseSpriteMesh: 0
+  m_UseSpriteMesh: 1
   m_PixelsPerUnitMultiplier: 1
 --- !u!1 &6396886469120319260
 GameObject:
@@ -517,8 +517,8 @@ MonoBehaviour:
   rightArrowButton: {fileID: 6396886467774078017}
   playerAvatar: {fileID: 6396886468040762007}
   avatars:
-  - {fileID: 6128299156075563123, guid: 08efecc9c3bab5942ad837e91db21566, type: 3}
-  - {fileID: 3386662938922423588, guid: 08efecc9c3bab5942ad837e91db21566, type: 3}
-  - {fileID: -6110656803992641779, guid: 08efecc9c3bab5942ad837e91db21566, type: 3}
-  - {fileID: 8553092956536608252, guid: 08efecc9c3bab5942ad837e91db21566, type: 3}
-  - {fileID: 6708733205153277002, guid: 08efecc9c3bab5942ad837e91db21566, type: 3}
+  - {fileID: 21300000, guid: 7a99530b6fc875841bdbb325d45c5523, type: 3}
+  - {fileID: 21300000, guid: 66fa1327436904a4fb3828520d5b9c58, type: 3}
+  - {fileID: 21300000, guid: 1fe7b1ccba326d64a87a0089144e85f7, type: 3}
+  - {fileID: 21300000, guid: cfaf04e6f5360a942982376441325c9a, type: 3}
+  - {fileID: 21300000, guid: c7c4e75caa6ace54b81cd62eccc64f92, type: 3}
